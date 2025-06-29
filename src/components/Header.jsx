@@ -5,11 +5,8 @@ import { FaSearch } from "react-icons/fa";
 export default function Header({ jumlahTrolli }) {
   return (
     <header className="w-full bg-white shadow-md font-raleway">
-      {/* Header utama */}
       <div className="max-w-7xl mx-auto flex items-center justify-between p-4">
         <div className="text-3xl text-[#2F2FA2] font-raleway">Aurora Luxe</div>
-
-        {/* Search */}
         <div className="flex-1 mx-12 relative">
           <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">
             <FaSearch />
@@ -21,7 +18,6 @@ export default function Header({ jumlahTrolli }) {
           />
         </div>
 
-        {/* Login & Cart */}
         <div className="flex items-center space-x-6">
           <button className="flex text-sm items-center px-4 py-1 text-[#2F2FA2] border border-[#2F2FA2] hover:bg-[#2F2FA2] hover:text-white rounded-full transition cursor-pointer">
             <AiOutlineUser className="mr-2 text-lg" />
@@ -36,7 +32,6 @@ export default function Header({ jumlahTrolli }) {
         </div>
       </div>
 
-      {/* Menu kategori */}
       <nav className="border-t border-gray-200">
         <div className="max-w-7xl mx-auto flex justify-center space-x-15 py-3 text-sm font-bold text-gray-600">
           {["Pandora", "Cartier", "Tiffany & Co", "Bvlgari"].map((label) => (

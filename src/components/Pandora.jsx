@@ -35,7 +35,6 @@ const Pandora = (props) => {
     }else{
       alert(`Anda tidak menambahkan komentar apapun`);
     }
-
   }
   useEffect(() => {
     setJumlahAdd(1);
