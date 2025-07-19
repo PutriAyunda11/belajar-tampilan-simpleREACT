@@ -2,7 +2,7 @@ import "@fontsource/raleway";
 import { AiOutlineUser, AiOutlineShoppingCart } from "react-icons/ai";
 import { FaSearch } from "react-icons/fa";
 
-export default function Header({ jumlahTrolli }) {
+export default function Header({ jumlahTrolli, cari, sortir }) {
   return (
     <header className="w-full bg-white shadow-md font-raleway">
       <div className="max-w-7xl mx-auto flex items-center justify-between p-4">
@@ -15,8 +15,19 @@ export default function Header({ jumlahTrolli }) {
             type="text"
             placeholder="Cari produk..."
             className="w-full pl-10 pr-6 py-1 border-sm rounded-full shadow-sm focus:outline-none focus:ring-2 focus:ring-[#2F2FA2]"
+            onChange={(e) => cari(e.target.value)}
           />
         </div>
+        <select
+          onChange={(e) => sortir(e.target.value)}
+          className="mr-4 py-1 px-3 border rounded-full text-sm text-gray-600 focus:outline-none focus:ring-2 focus:ring-[#2F2FA2]"
+        >
+          <option value="">Sorting</option>
+          <option value="nama-asc">Nama A-Z</option>
+          <option value="nama-desc">Nama Z-A</option>
+          <option value="harga-asc">Harga Terendah</option>
+          <option value="harga-desc">Harga Tertinggi</option>
+        </select>
 
         <div className="flex items-center space-x-6">
           <button className="flex text-sm items-center px-4 py-1 text-[#2F2FA2] border border-[#2F2FA2] hover:bg-[#2F2FA2] hover:text-white rounded-full transition cursor-pointer">

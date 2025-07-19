@@ -11,7 +11,7 @@ const Pandora = (props) => {
   const [favorite, setFavorite] = useState([]);
   const [dropDown, setDropDown] = useState(null);
   const [jumlahAdd, setJumlahAdd] = useState(1);
-
+  const dataPandoraTamp = props.dataPandora;
   const tombolFav = (id) => {
     setFavorite((cekId) =>
       cekId.includes(id)
@@ -28,23 +28,36 @@ const Pandora = (props) => {
   const kurangjumlahProduk = () => {
     setJumlahAdd((prev) => (prev > 1 ? prev - 1 : prev));
   };
-  const coment =()=>{
+  const coment = () => {
     const inputComent = prompt(`Masukkan komentar Anda :`);
-    if(inputComent){
+    if (inputComent) {
       alert(`Berhasil menambahkan komentar!`);
-    }else{
+    } else {
       alert(`Anda tidak menambahkan komentar apapun`);
     }
-  }
+  };
   useEffect(() => {
     setJumlahAdd(1);
   }, [dropDown]);
 
+  useEffect(() => {
+  setHalamanSaatIni(1);
+}, [props.dataPandora]);
+
+
+  const [halamanSaatIni, setHalamanSaatIni] = useState(1);
+  const itemPerHalaman = 8;
+
+  const indexAwal = (halamanSaatIni - 1) * itemPerHalaman;
+  const indexAkhir = indexAwal + itemPerHalaman;
+  const dataTerbatas = dataPandoraTamp.slice(indexAwal, indexAkhir);
+
+  const totalHalaman = Math.ceil(dataPandoraTamp.length / itemPerHalaman);
 
   return (
     <div className="max-w-auto mx-auto px-4 py-6">
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2">
-        {props.dataPandora.map((content) => (
+        {dataTerbatas.map((content) => (
           <div
             key={content.id}
             className="bg-white shadow transition flex flex-col"
@@ -81,6 +94,47 @@ const Pandora = (props) => {
             </div>
           </div>
         ))}
+      </div>
+      <div className="flex justify-center items-center mt-6 space-x-2">
+        <button
+          onClick={() => setHalamanSaatIni((prev) => Math.max(prev - 1, 1))}
+          disabled={halamanSaatIni === 1}
+          className={`px-3 py-1 rounded ${
+            halamanSaatIni === 1
+              ? "bg-gray-300 text-gray-600 cursor-not-allowed"
+              : "bg-[#2F2FA2] text-white hover:bg-[#1e1e84]"
+          }`}
+        >
+          Prev
+        </button>
+
+        {Array.from({ length: totalHalaman }, (_, i) => (
+          <button
+            key={i + 1}
+            onClick={() => setHalamanSaatIni(i + 1)}
+            className={`px-3 py-1 rounded ${
+              halamanSaatIni === i + 1
+                ? "bg-[#2F2FA2] text-white"
+                : "bg-gray-200 text-gray-800 hover:bg-gray-300"
+            }`}
+          >
+            {i + 1}
+          </button>
+        ))}
+
+        <button
+          onClick={() =>
+            setHalamanSaatIni((prev) => Math.min(prev + 1, totalHalaman))
+          }
+          disabled={halamanSaatIni === totalHalaman}
+          className={`px-3 py-1 rounded ${
+            halamanSaatIni === totalHalaman
+              ? "bg-gray-300 text-gray-600 cursor-not-allowed"
+              : "bg-[#2F2FA2] text-white hover:bg-[#1e1e84]"
+          }`}
+        >
+          Next
+        </button>
       </div>
 
       {dropDown && (
@@ -139,8 +193,11 @@ const Pandora = (props) => {
                     >
                       Add to Trolli!
                     </button>
-                    <button onClick={()=>coment()} className="p-2 rounded-full hover:bg-gray-100 transition text-[#2F2FA2] text-xl">
-                      <FaRegCommentDots size={29}/>
+                    <button
+                      onClick={() => coment()}
+                      className="p-2 rounded-full hover:bg-gray-100 transition text-[#2F2FA2] text-xl"
+                    >
+                      <FaRegCommentDots size={29} />
                     </button>
                   </div>
                 </>
